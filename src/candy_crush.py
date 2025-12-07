@@ -1,34 +1,29 @@
-###
-#import temp
-#import console_print
-#
-# main.refill()
-#
-#temp.board = [
-#    [ 5, 7, 7, 6, 2, 2, 3, 2 ],
-#    [ 6, 7, 1, 3, 7, 3, 1, 3 ],
-#    [ 2, 3, 3, 3, 4, 5, 2, 7 ],
-#    [ 2, 5, 6, 3, 5, 5, 2, 3 ],
-#    [ 7, 6, 5, 4, 2, 3, 4, 2 ],
-#    [ 4, 4, 5, 5, 6, 3, 3, 3 ]
-#]
-#
-#console_print.print_board_int()
-#print("----------------------------")
-#
-#while temp.match_and_destroy():
-#    console_print.print_board_int()
-#    print("")
-#    temp.refill()
-#    console_print.print_board_int()
-#    print("----------------------------")
-#
-
 import main as cc
 import structs as s
 import console_print as c_print
 
+
+# init game
 myCandyCrush : s.Game = s.Game()
-s.new_board(myCandyCrush, 5, 8)
+s.new_board(myCandyCrush, 8, 8)
 cc.refill(myCandyCrush)
-c_print.print_board_int(myCandyCrush)
+
+while True:
+    c_print.print_board_int(myCandyCrush)
+    print("")
+    # User makes Turn
+    # Special check for Manual Color Bomb
+    while cc.refill(myCandyCrush):
+
+        # Check all candies for any special formations
+        for i in range(myCandyCrush.COLS):
+            for j in range(myCandyCrush.ROWS):
+                cc.queue_new_specials(myCandyCrush, s.Coords(c=i, r=j))
+        
+        # Match and Destroy
+        
+        # Add the queued special candies to the board
+        cc.apply_special_candies(myCandyCrush)
+        
+        # Activate triggered special candies
+        cc.apply_special_candies(myCandyCrush)
