@@ -1,6 +1,5 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import ClassVar
 
 class COLOR(Enum):
     N = ""
@@ -30,13 +29,18 @@ class Coords:
 
 @dataclass
 class Waiting_Candy:
-    candy : Candy = Candy()
-    coords : Coords = Coords()
+    candy : Candy = field(default_factory=lambda: Candy())
+    coords : Coords = field(default_factory=lambda: Coords())
 
 @dataclass
 class Game:
-    ROWS: ClassVar[int] = 8
-    COLS: ClassVar[int] = 8    
+    ROWS: int = 8
+    COLS: int = 8    
     board: list[list[Candy]] = field(default_factory=lambda: [[Candy() for _ in range(Game.COLS)]for _ in range(Game.ROWS)])
     score: int = 0
     time: int = 0
+
+def new_board(game: Game, cols : int, rows : int):
+    game.COLS = cols
+    game.ROWS = rows
+    game.board = [[Candy() for _ in range(rows)] for _ in range(cols)]

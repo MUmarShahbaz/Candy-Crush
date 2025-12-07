@@ -23,3 +23,12 @@
 #    console_print.print_board_int()
 #    print("----------------------------")
 #
+
+import main as cc
+import structs as s
+import console_print as c_print
+
+myCandyCrush : s.Game = s.Game()
+s.new_board(myCandyCrush, 5, 8)
+cc.refill(myCandyCrush)
+c_print.print_board_int(myCandyCrush)
