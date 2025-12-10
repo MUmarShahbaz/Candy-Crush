@@ -20,11 +20,11 @@ def refill(game : s.Game) -> bool:
 
 
 def destroy_candy(game : s.Game, coords : s.Coords):
-    candy = game.board[coords.c][coords.r]										# Access the candy at the given coords
-    if m.candy_is_special(candy):												# If the candy is a special candy, queue it
-        activated_specials.append(s.Waiting_Candy(coords=coords, candy=candy))
-    game.board[coords.c][coords.r] = s.Candy()									# Replace with an empty candy (Queued Candies will be activated near end of the execution cycle)
-    
+	candy = game.board[coords.c][coords.r]										# Access the candy at the given coords
+	if m.candy_is_special(candy):												# If the candy is a special candy, queue it
+		activated_specials.append(s.Waiting_Candy(coords=coords, candy=candy))
+	game.board[coords.c][coords.r] = s.Candy()									# Replace with an empty candy (Queued Candies will be activated near end of the execution cycle)
+	
 
 def match_and_destroy(game: s.Game):
 	for c in range(game.COLS):
@@ -64,11 +64,13 @@ def match_and_destroy(game: s.Game):
 			if vertical   == 4:						game.board[c][r] = s.Candy(mode=s.MODE.VS, color=candy.color)
 			if horizontal >= 5 or vertical >= 5:	game.board[c][r] = s.Candy(mode=s.MODE.CB, color=s.COLOR.N  )
 			if is_elbow:							game.board[c][r] = s.Candy(mode=s.MODE.W , color=candy.color)
+			if m.candy_is_special(game.board[c][r]): print(f"New Special Candy at ({c},{r}): {game.board[c][r].mode}")
 	
 	# Run any triggered special candies
 	apply_special_candies(game)
 
 def apply_special_candies(game : s.Game):
+	global activated_specials
 	for queued_candy in activated_specials:
 
 		# Horizontally Stripped Candy
@@ -93,3 +95,5 @@ def apply_special_candies(game : s.Game):
 		# Color Bomb:
 		if queued_candy.candy.mode == s.MODE.CB:
 			pass
+	
+	activated_specials = []
