@@ -44,8 +44,8 @@ def vertical_streak_with_candy(game: s.Game, coords : s.Coords) -> int:
 
 def elbow_with_candy(game : s.Game, coords : s.Coords) -> bool:
 	candy : s.Candy = game.board[coords.c][coords.r]
-    
-    # Elbow Match
+
+	# Elbow Match
 	horizontal_3_to_left  : bool = False
 	horizontal_3_to_right : bool = False
 	vertical_3_to_top     : bool = False
