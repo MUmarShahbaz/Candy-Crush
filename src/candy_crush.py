@@ -29,6 +29,7 @@ myCandyCrush.board[0][2] = s.Candy(color=s.COLOR.BLUE)
 
 
 while True:
+	print("")
 	c_print.print_board_int(myCandyCrush)
 	print("")
 	swap_prompt()
